@@ -5,8 +5,19 @@ var ReactDemo = React.createClass({
     console.log('render ReactDemo component');
     return (
       <div>
-       <h1>Hello React World!</h1>
+        <TitleBox
+          title='Search for imageS'
+        />
       </div>
+    );
+  }
+});
+
+var TitleBox = React.createClass({
+  render: function () {
+    console.log('render TitleBox component');
+    return (
+      <h1>{this.props.title}</h1>
     );
   }
 });
