@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PhotosSearchDemo.Services;
 
 namespace PhotosSearchDemo
 {
@@ -23,7 +24,12 @@ namespace PhotosSearchDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add framework services.
             services.AddMvc();
+
+            // Add a scoped service of the type IPhotosService with an implementation of type UnsplashPhotosService
+            // to application's services collection.
+            services.AddScoped<IPhotosService, UnsplashPhotosService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
