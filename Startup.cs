@@ -41,6 +41,8 @@ namespace PhotosSearchDemo
             }
 
             app.UseMvc();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
         }
     }
 }
