@@ -15,6 +15,7 @@ var ReactDemo = React.createClass({
           tag={this.tag}
         />
         <SearchResult
+          images={this.state.images}
           emptyText={this.state.emptyText}
         />
       </div>
@@ -29,18 +30,26 @@ var ReactDemo = React.createClass({
   handleBtnClick: function () {
     if (!this.state.tag) {
       this.setState({
+        images: [],
         emptyText: 'Please specify search query'
       });
     } else {
-      this.setState({
-        emptyText: 'There are no images matching your search :(',
-        tag: ''
-      });
+      // Use ASP.NET MVC Core to get images data
+      fetch('/api/photos/'+ this.state.tag)
+        .then(results => results.json())
+        .then(data => {
+          this.setState({
+            images: data.result,
+            emptyText: data.result.lenght > 0 ? '' : 'There are no images matching your search :(',
+            tag: ''
+          });
+        });
     }
   },
   // Enables to set the initial state value, that is accessible inside the component via this.state.
   getInitialState: function () {
     return {
+      images: [],
       tag: '',
       emptyText: 'Currently there are no images to show :)'
     }
@@ -80,8 +89,19 @@ var SearchBox = React.createClass({
 var SearchResult = React.createClass({
   render: function () {
     console.log('render SearchResult component');
+    if (!this.props.images || this.props.images.length == 0) {
+      return (
+        <p>{this.props.emptyText}</p>
+      );
+    }
+    const listItems = this.props.images.map((image) =>
+      <li key={image.id}>
+        <img src={image.url}></img>
+        <p>{image.description}</p>
+      </li>
+    );
     return (
-      <p>{this.props.emptyText}</p>
+      <ul>{listItems}</ul>
     );
   }
 });
