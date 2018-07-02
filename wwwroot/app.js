@@ -14,6 +14,9 @@ var ReactDemo = React.createClass({
           updateValueHandler={this.updateInputValue}
           tag={this.tag}
         />
+        <SearchResult
+          emptyText={this.state.emptyText}
+        />
       </div>
     );
   },
@@ -24,12 +27,22 @@ var ReactDemo = React.createClass({
     this.btnText = 'Search';
   },
   handleBtnClick: function () {
-    alert("input value is: " + this.state.tag);
+    if (!this.state.tag) {
+      this.setState({
+        emptyText: 'Please specify search query'
+      });
+    } else {
+      this.setState({
+        emptyText: 'There are no images matching your search :(',
+        tag: ''
+      });
+    }
   },
   // Enables to set the initial state value, that is accessible inside the component via this.state.
   getInitialState: function () {
     return {
-      tag: ''
+      tag: '',
+      emptyText: 'Currently there are no images to show :)'
     }
   },
   updateInputValue: function (evt) {
@@ -60,6 +73,15 @@ var SearchBox = React.createClass({
           {this.props.text}
         </button>
       </div>
+    );
+  }
+});
+
+var SearchResult = React.createClass({
+  render: function () {
+    console.log('render SearchResult component');
+    return (
+      <p>{this.props.emptyText}</p>
     );
   }
 });
