@@ -6,11 +6,16 @@ var ReactDemo = React.createClass({
     return (
       <div>
         <TitleBox
-          title='Search for imageS'
+          title={this.titleText}
         />
       </div>
     );
-  }
+  },
+  // This method is only called one time, which is before the initial render.
+  // At this point, props and initial state are defined.
+  componentWillMount: function () {
+    this.titleText = 'Search for imageS';
+  },
 });
 
 var TitleBox = React.createClass({
