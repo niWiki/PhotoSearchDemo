@@ -11,6 +11,8 @@ var ReactDemo = React.createClass({
         <SearchBox
           text={this.btnText}
           clickHandler={this.handleBtnClick}
+          updateValueHandler={this.updateInputValue}
+          tag={this.tag}
         />
       </div>
     );
@@ -22,8 +24,19 @@ var ReactDemo = React.createClass({
     this.btnText = 'Search';
   },
   handleBtnClick: function () {
-    alert("clicked");
+    alert("input value is: " + this.state.tag);
   },
+  // Enables to set the initial state value, that is accessible inside the component via this.state.
+  getInitialState: function () {
+    return {
+      tag: ''
+    }
+  },
+  updateInputValue: function (evt) {
+    this.setState({
+      tag: evt.target.value
+    });
+  }
 });
 
 var TitleBox = React.createClass({
@@ -40,6 +53,7 @@ var SearchBox = React.createClass({
     console.log('render SearchBox component');
     return (
       <div>
+        <input value={this.props.tag} onChange={this.props.updateValueHandler} />
         <button
           onClick={this.props.clickHandler}
         >
