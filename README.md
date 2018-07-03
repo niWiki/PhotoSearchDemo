@@ -18,8 +18,7 @@ Develop images retrieve logic
 
 Add reactjs as frontend. Enable static and default files for MVC.
 -----------
-Static files, such as HTML, CSS, images, and JavaScript, are assets an ASP.NET Core app serves directly to clients. Some configuration is required to enable to serving of these files. Static files are stored within your project's web root directory. The default directory is `<content_root>/wwwroot`, but it can be changed. To serve files inside of web root
-invoke the `UseStaticFiles` method within `Startup.Configure`:
+Static files, such as HTML, CSS, images, and JavaScript, are assets that ASP.NET Core app serves directly to clients. Some configuration is required to enable the serving of these files. Static files are stored within your project's web root directory. The default directory is `<content_root>/wwwroot`, but it can be changed. To serve files inside of web root invoke the `UseStaticFiles` method within `Startup.Configure`:
 ```c#
 public void Configure(IApplicationBuilder app)
 {
@@ -35,10 +34,11 @@ public void Configure(IApplicationBuilder app)
 ```
 Create ReactDemo class. ReactDOM calls it initially.
 -----------
-Render a React element into the DOM in the supplied container and return a reference to the component (or returns null for stateless components).
+Render a React element into the DOM in the supplied container and return a reference to the component (or returns null for stateless components). This is how you render the highest-level component.
 
 Develop TitleBox component. Add it as ReactDemo's child component.
 -----------
+Create new component that will be child of already created ReactDemo one. The curly braces are a special syntax to let the JSX parser know that it needs to interpret the contents in between them as JavaScript instead of a string. You need them when you want to use a JavaScript expression like a variable or a reference inside JSX.
 
 Pass properties to child component. Use componentWillMount method to initiate variables.
 -----------
@@ -47,7 +47,7 @@ The `componentWillMount()` is a chance to handle configuration, update our state
 
 Add button to component and add click event to it.
 -----------
-Functions can be passed as properties.
+With JSX you pass a function as the event handler, rather than a string.
 
 Add input to SearchBox component. Add handler to update its value. Use getInitialState method to initialize state variable.
 -----------
